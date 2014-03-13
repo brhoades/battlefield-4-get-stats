@@ -7,9 +7,9 @@ Currently it provides an easy way to generate a spreadsheet of all the weapons t
 
 ## Configuration
 
-You need two pieces of information before being able to get stats from a specific soldier. You need what is refered to as a **persona id** and **username**. They belong in the configuration file. To get this information you can visit a soldiers page in **Battlelog** and you will be able to see them in the url as highlighted the image below.
+You need one piece of information before being able to get stats from a specific soldier. You need what is refered to as a **persona id**. It belongs in the configuration file. To get this information you can visit a soldiers page in **Battlelog** and you will be able to see it in the url as highlighted the image below.
 
-![battlelog](https://dl.dropboxusercontent.com/u/3413996/github_images/persona.png "How to get information on Battlelog")
+![battlelog](https://dl.dropboxusercontent.com/u/3413996/github_images/persona.png "How to get persona id on Battlelog")
 
 ## Running
 

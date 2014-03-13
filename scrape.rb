@@ -6,11 +6,11 @@ require 'open-uri'
 
 cfg = IO.readlines('scrape.cfg')
 personaID = cfg[0].split('=')[1].chomp
-username = cfg[1].split('=')[1].chomp
+outputName = cfg[1].split('=')[1].chomp
 
 weapons_url = "http://battlelog.battlefield.com/bf4/warsawWeaponsPopulateStats/#{personaID}/1/unlocks/"
 accessories_url = "http://battlelog.battlefield.com/bf4/warsawWeaponAccessoriesPopulateStats/#{personaID}/1/"
-output = 'output.csv'
+output = "#{outputName}.csv"
 
 weaponStatsJSON = JSON.parse(open(weapons_url).read())
 weapons = Hash.new
