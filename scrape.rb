@@ -2,15 +2,16 @@ require 'json'
 require 'csv'
 require 'parallel'
 require 'open-uri'
+require 'settingslogic'
 
+class Settings < Settingslogic
+  source "scrape.yml"
+end
 
-cfg = IO.readlines('scrape.cfg')
-personaID = cfg[0].split('=')[1].chomp
-outputName = cfg[1].split('=')[1].chomp
-
-weapons_url = "http://battlelog.battlefield.com/bf4/warsawWeaponsPopulateStats/#{personaID}/1/unlocks/"
-accessories_url = "http://battlelog.battlefield.com/bf4/warsawWeaponAccessoriesPopulateStats/#{personaID}/1/"
-output = "#{outputName}.csv"
+set = Settings.new
+weapons_url = "http://battlelog.battlefield.com/bf4/warsawWeaponsPopulateStats/#{set['personaID']}/1/unlocks/"
+accessories_url = "http://battlelog.battlefield.com/bf4/warsawWeaponAccessoriesPopulateStats/#{set['personaID']}/1/"
+output = "#{set['outputName']}.csv"
 
 weaponStatsJSON = JSON.parse(open(weapons_url).read)
 weapons = Array.new
@@ -46,10 +47,12 @@ Parallel.each(weaponStatsJSON['data']['mainWeaponStats'], :in_threads => 20, :in
     'Name'                         => 'slug',
     'Kills'                        => 'kills',
     'Category'                     => 'category',
-    'Unlocked Accessories'         => completed,
-    'Total Accessories'            => totalAccessories,
-    'Total Unlockable Unlocked Accessories' => totUnlockableAccessUnlocked,
+    'Unlocked Accessories' => totUnlockableAccessUnlocked,
     'Total Unlockable Accessories' => totalUnlockableAccessories,
+    "Other Accessories"            => totalAccessories-totalUnlockableAccessories,
+    "Other Accessories Obtained"   => completed-totUnlockableAccessUnlocked,
+    'Accessories Obtained'         => completed,
+    'Total Accessories'            => totalAccessories,
   }
 
   # Hack for capital names:
