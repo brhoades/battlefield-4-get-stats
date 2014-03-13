@@ -21,8 +21,6 @@ Parallel.each(weaponStatsJSON['data']['mainWeaponStats'], :in_threads => 20, :in
 
   accessoriesJSON = JSON.parse(open(accessories_url + "#{guid}/").read)
 
-  # print JSON.pretty_generate( wepStats ), "\n\n\n"
-
   completed = 0
   totalAccessories = accessoriesJSON['data']['statsItemUnlocks'].length
   totalUnlockableAccessories = 0
@@ -50,8 +48,8 @@ Parallel.each(weaponStatsJSON['data']['mainWeaponStats'], :in_threads => 20, :in
     'Category'                     => 'category',
     'Unlocked Accessories'         => completed,
     'Total Accessories'            => totalAccessories,
+    'Total Unlockable Unlocked Accessories' => totUnlockableAccessUnlocked,
     'Total Unlockable Accessories' => totalUnlockableAccessories,
-    'Total Unlockable Unlocked Accessories' => totUnlockableAccessUnlocked
   }
 
   # Hack for capital names:
