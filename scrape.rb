@@ -12,17 +12,17 @@ weapons_url = "http://battlelog.battlefield.com/bf4/warsawWeaponsPopulateStats/#
 accessories_url = "http://battlelog.battlefield.com/bf4/warsawWeaponAccessoriesPopulateStats/#{personaID}/1/"
 output = "#{outputName}.csv"
 
-weaponStatsJSON = JSON.parse(open(weapons_url).read())
+weaponStatsJSON = JSON.parse(open(weapons_url).read)
 weapons = Hash.new
 
 
-Parallel.each(weaponStatsJSON['data']['mainWeaponStats'], :in_threads => 20, :in_processes => 2) do |weaponStats|
-    name = weaponStats['slug']
-    guid = weaponStats['guid']
-    kills = weaponStats['kills']
-    category = weaponStats['category']
+Parallel.each(weaponStatsJSON['data']['mainWeaponStats'], :in_threads => 20, :in_processes => 2) do |wepStats|
+    name = wepStats['slug']
+    guid = wepStats['guid']
+    kills = wepStats['kills']
+    category = wepStats['category']
 
-    accessoriesJSON = JSON.parse(open(accessories_url + "#{guid}/").read())
+    accessoriesJSON = JSON.parse(open(accessories_url + "#{guid}/").read)
 
     completed = 0
     totalAccessories = accessoriesJSON['data']['statsItemUnlocks'].length
